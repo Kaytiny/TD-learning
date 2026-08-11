@@ -31,33 +31,37 @@ The Bellman optimality operator:
 
 $$(T_* v)(s) = \max_{a \in \mathcal{A}} \left( R_s^a + \gamma \sum_{s' \in \mathcal{S}} P_{ss'}^a v(s') \right)$$
 
-#### Contraction Proofs for $T_\pi$ and $T_*$
+## Contraction Proofs for $T_\pi$ and $T_*$
 
 In the complete metric space $\mathbb{R}^{|\mathcal{S}|}$ equipped with the maximum norm $\|v\|_\infty = \max_{s \in \mathcal{S}} |v(s)|$:
 
-1. **For $T_\pi$:**
+### 1. For $T_\pi$:
 
-   $$\|T_\pi u - T_\pi v\|_\infty = \|\gamma P^\pi (u - v)\|_\infty \le \gamma \|P^\pi\|_\infty \|u - v\|_\infty = \gamma \|u - v\|_\infty$$
+$$\|T_\pi u - T_\pi v\|_\infty = \|\gamma P^\pi (u - v)\|_\infty \le \gamma \|P^\pi\|_\infty \|u - v\|_\infty = \gamma \|u - v\|_\infty$$
 
-   Since $P^\pi$ is a stochastic matrix ($\|P^\pi\|_\infty = 1$) and $\gamma &lt; 1$, $T_\pi$ is a contraction mapping.
+Since $P^\pi$ is a stochastic matrix ($\|P^\pi\|_\infty = 1$) and $\gamma &lt; 1$, $T_\pi$ is a contraction mapping.
 
-2. **For $T_*$:**
+### 2. For $T_*$:
 
-   For any state $s \in \mathcal{S}$, assuming the maximum for $(T_* u)_s$ is attained at action $a_1$:
+For any state $s \in \mathcal{S}$, assuming the maximum for $(T_* u)_s$ is attained at action $a_1$:
 
-   $$(T_* u)_s - (T_* v)_s \le \gamma \sum_{s'} P_{ss'}^{a_1} (u_{s'} - v_{s'}) \le \gamma \|u - v\|_\infty \sum_{s'} P_{ss'}^{a_1} = \gamma \|u - v\|_\infty$$
+$$(T_* u)_s - (T_* v)_s \le \gamma \sum_{s'} P_{ss'}^{a_1} (u_{s'} - v_{s'}) \le \gamma \|u - v\|_\infty \sum_{s'} P_{ss'}^{a_1} = \gamma \|u - v\|_\infty$$
 
-   Evaluating $(T_* v)_s - (T_* u)_s$ similarly yields:
+Evaluating $(T_* v)_s - (T_* u)_s$ similarly yields:
 
-   $$\|T_* u - T_* v\|_\infty \le \gamma \|u - v\|_\infty$$
+$$\|T_* u - T_* v\|_\infty \le \gamma \|u - v\|_\infty$$
 
-*By Banach's fixed-point theorem, there exists a unique fixed point $v_\pi = T_\pi v_\pi$ and $v_* = T_* v_*$ to which iterative evaluations guaranteedly converge.*
+By Banach's fixed-point theorem, there exists a unique fixed point $v_\pi = T_\pi v_\pi$ and $v_* = T_* v_*$ to which iterative evaluations guaranteedly converge.
+
+---
 
 ### 3. RL in Terms of Control Theory & Dynamical Systems
 
-* **Error Signal / Feedback:** The TD-error $\delta_t = R_{t+1} + \gamma V(S_{t+1}) - V(S_t)$ mirrors the system tracking error $e(t) = u(t) - y(t)$ in classical closed-loop control systems.
-* **Control Synthesis:** Greedy action selection over $Q$-values corresponds to analytical controller synthesis, where $V(s)$ or $Q(s,a)$ acts as a discrete Lyapunov function.
-* **Two-Time-Scale Dynamics:** Fast time-scale dynamics govern environment state transitions $S_t \to S_{t+1}$, whereas slow time-scale dynamics govern value parameter updates ($Q$/$V$).
+- **Error Signal / Feedback:** The TD-error $\delta_t = R_{t+1} + \gamma V(S_{t+1}) - V(S_t)$ mirrors the system tracking error $e(t) = u(t) - y(t)$ in classical closed-loop control systems.
+
+- **Control Synthesis:** Greedy action selection over $Q$-values corresponds to analytical controller synthesis, where $V(s)$ or $Q(s,a)$ acts as a discrete Lyapunov function.
+
+- **Two-Time-Scale Dynamics:** Fast time-scale dynamics govern environment state transitions $S_t \to S_{t+1}$, whereas slow time-scale dynamics govern value parameter updates ($Q$/$V$).
 
 ---
 
