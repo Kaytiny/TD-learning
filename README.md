@@ -39,19 +39,19 @@ In the complete metric space $\mathbb{R}^{|\mathcal{S}|}$ equipped with the maxi
 
    $$\|T_\pi u - T_\pi v\|_\infty = \|\gamma P^\pi (u - v)\|_\infty \le \gamma \|P^\pi\|_\infty \|u - v\|_\infty = \gamma \|u - v\|_\infty$$
 
-   Since $P^\pi$ is a stochastic matrix ($\|P^\pi\|_\infty = 1$) and $\gamma < 1$, $T_\pi$ is a contraction mapping.
+   Since $P^\pi$ is a stochastic matrix ($\|P^\pi\|_\infty = 1$) and $\gamma &lt; 1$, $T_\pi$ is a contraction mapping.
 
 2. **For $T_*$:**
 
-   For any state $s \in \mathcal{S}$, assuming the maximum for $(T_* u)(s)$ is attained at action $a_1$:
+   For any state $s \in \mathcal{S}$, assuming the maximum for $(T_* u)_s$ is attained at action $a_1$:
 
-   $$(T_* u)(s) - (T_* v)(s) \le \gamma \sum_{s'} P_{ss'}^{a_1} (u(s') - v(s')) \le \gamma \|u - v\|_\infty \sum_{s'} P_{ss'}^{a_1} = \gamma \|u - v\|_\infty$$
+   $$(T_* u)_s - (T_* v)_s \le \gamma \sum_{s'} P_{ss'}^{a_1} (u_{s'} - v_{s'}) \le \gamma \|u - v\|_\infty \sum_{s'} P_{ss'}^{a_1} = \gamma \|u - v\|_\infty$$
 
-   Evaluating $(T_* v)(s) - (T_* u)(s)$ similarly yields:
+   Evaluating $(T_* v)_s - (T_* u)_s$ similarly yields:
 
    $$\|T_* u - T_* v\|_\infty \le \gamma \|u - v\|_\infty$$
 
-*By Banach's fixed-point theorem, there exists a unique fixed point $v_\pi = T_\pi v_\pi$ and $v_* = T_* v_*$ to which iterative evaluations are guaranteed to converge.*
+*By Banach's fixed-point theorem, there exists a unique fixed point $v_\pi = T_\pi v_\pi$ and $v_* = T_* v_*$ to which iterative evaluations guaranteedly converge.*
 
 ### 3. RL in Terms of Control Theory & Dynamical Systems
 
@@ -73,10 +73,14 @@ In the complete metric space $\mathbb{R}^{|\mathcal{S}|}$ equipped with the maxi
 
 * **Description:** A $5 \times 5$ environment starting at $(0,0)$ with goal state $(4,4)$. Step reward is $-1$, with $+10$ awarded upon reaching the goal.
 * **Objective:** Analyzing the impact of hyperparameters $\alpha$, $\gamma$, and the $\epsilon$-greedy exploration policy on **Q-learning** convergence.
-* **Findings:** Optimal convergence stability is achieved at $\alpha = 0.1$, $\gamma = 0.95$, $\epsilon = 0.1$. High exploration ($\epsilon = 0.5$) causes persistent reward fluctuations, while undersized exploration ($\epsilon = 0.01$) increases the risk of getting trapped in local optima.
+* **Findings:**
+  * Optimal convergence stability is achieved at $\alpha = 0.1, \gamma = 0.95, \epsilon = 0.1$.
+  * High exploration ($\epsilon = 0.5$) causes persistent reward fluctuations, while undersized exploration ($\epsilon = 0.01$) increases the risk of getting trapped in local optima.
 
 ### 3. Pendulum-v1 (Discretized Inverted Pendulum)
 
 * **Description:** Continuous inverted pendulum stabilization task, discretized into $8 \times 8 \times 8 = 512$ states and $5$ torque control action levels $a \in \{-2.0, -1.0, 0.0, 1.0, 2.0\}$.
 * **Objective:** Comparative analysis of On-policy (**SARSA**) versus Off-policy (**Q-learning**) control strategies.
-* **Findings:** **Q-learning** reaches a higher return plateau ($\sim -600$) by computing updates via the maximum operator $\max_a Q(s',a)$, resulting in an aggressive, time-optimal swing-up control policy. **SARSA** converges to a lower plateau ($\sim -700$), accounting for actual exploratory actions ($\epsilon = 0.1$) to produce a conservative control policy that mitigates fall risks under stochasticity.
+* **Findings:**
+  * **Q-learning** reaches a higher return plateau ($\sim -600$) by computing updates via the maximum operator $\max_a Q(s',a)$, resulting in an aggressive, time-optimal swing-up control policy.
+  * **SARSA** converges to a lower plateau ($\sim -700$), accounting for actual exploratory actions ($\epsilon = 0.1$) to produce a conservative control policy that mitigates fall risks under stochasticity.
