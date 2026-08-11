@@ -14,27 +14,40 @@ The dynamics of the decision process are formalized as a tuple $\langle \mathcal
 * $\gamma \in [0, 1)$ is the discount factor.
 
 State-value $V^\pi(s)$ and action-value $Q^\pi(s,a)$ functions under policy $\pi$:
-$$V^\pi(s) = \mathbb{E}_\pi \left[ \sum_{k=0}^{\infty} \gamma^k R_{t+k+1} \;\Bigg\vert{}\; S_t = s \right]$$
-$$Q^\pi(s,a) = \mathbb{E}_\pi \left[ \sum_{k=0}^{\infty} \gamma^k R_{t+k+1} \;\Bigg\vert{}\; S_t = s, A_t = a \right]$$
+
+$$V^\pi(s) = \mathbb{E}_\pi \left[ \sum_{k=0}^{\infty} \gamma^k R_{t+k+1} \;\Bigg|\; S_t = s \right]$$
+
+$$Q^\pi(s,a) = \mathbb{E}_\pi \left[ \sum_{k=0}^{\infty} \gamma^k R_{t+k+1} \;\Bigg|\; S_t = s, A_t = a \right]$$
 
 ### 2. Bellman Operators & Banach Fixed-Point Theorem
+
 The linear Bellman operator for a fixed policy $\pi$:
+
 $$T_\pi(v) = R^\pi + \gamma P^\pi v$$
+
 The Bellman optimality operator:
+
 $$(T_* v)(s) = \max_{a \in \mathcal{A}} \left( R_s^a + \gamma \sum_{s' \in \mathcal{S}} P_{ss'}^a v(s') \right)$$
 
 #### Contraction Proofs for $T_\pi$ and $T_*$
-In the complete metric space $\mathbb{R}^{\vert{}\mathcal{S}\vert{}}$ equipped with the maximum norm $\Vert{}v\Vert{}_\infty = \max_{s \in \mathcal{S}} \vert{}v(s)\vert{}$:
+
+In the complete metric space $\mathbb{R}^{|\mathcal{S}|}$ equipped with the maximum norm $\|v\|_\infty = \max_{s \in \mathcal{S}} |v(s)|$:
 
 1. **For $T_\pi$:**
-   $$\Vert{}T_\pi u - T_\pi v\Vert{}_\infty = \Vert{}\gamma P^\pi (u - v)\Vert{}_\infty \le \gamma \Vert{}P^\pi\Vert{}_\infty \Vert{}u - v\Vert{}_\infty = \gamma \Vert{}u - v\Vert{}_\infty$$
-   Since $P^\pi$ is a stochastic matrix ($\Vert{}P^\pi\Vert{}_\infty = 1$) and $\gamma < 1$, $T_\pi$ is a contraction mapping.
+
+   $$\|T_\pi u - T_\pi v\|_\infty = \|\gamma P^\pi (u - v)\|_\infty \le \gamma \|P^\pi\|_\infty \|u - v\|_\infty = \gamma \|u - v\|_\infty$$
+
+   Since $P^\pi$ is a stochastic matrix ($\|P^\pi\|_\infty = 1$) and $\gamma < 1$, $T_\pi$ is a contraction mapping.
 
 2. **For $T_*$:**
+
    For any state $s \in \mathcal{S}$, assuming the maximum for $(T_* u)_s$ is attained at action $a_1$:
-   $$(T_* u)_s - (T_* v)_s \le \gamma \sum_{s'} P_{ss'}^{a_1} (u_{s'} - v_{s'}) \le \gamma \Vert{}u - v\Vert{}_\infty \sum_{s'} P_{ss'}^{a_1} = \gamma \Vert{}u - v\Vert{}_\infty$$
+
+   $$(T_* u)_s - (T_* v)_s \le \gamma \sum_{s'} P_{ss'}^{a_1} (u_{s'} - v_{s'}) \le \gamma \|u - v\|_\infty \sum_{s'} P_{ss'}^{a_1} = \gamma \|u - v\|_\infty$$
+
    Evaluating $(T_* v)_s - (T_* u)_s$ similarly yields:
-   $$\Vert{}T_* u - T_* v\Vert{}_\infty \le \gamma \Vert{}u - v\Vert{}_\infty$$
+
+   $$\|T_* u - T_* v\|_\infty \le \gamma \|u - v\|_\infty$$
 
 *By Banach's fixed-point theorem, there exists a unique fixed point $v_\pi = T_\pi v_\pi$ and $v_* = T_* v_*$ to which iterative evaluations guaranteedly converge.*
 
