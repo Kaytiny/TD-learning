@@ -31,27 +31,33 @@ The Bellman optimality operator:
 
 $$(T_* v)(s) = \max_{a \in \mathcal{A}} \left( R_s^a + \gamma \sum_{s' \in \mathcal{S}} P_{ss'}^a v(s') \right)$$
 
-#### Contraction Proofs for $T_\pi$ and $T_*$
+#### Contraction Proofs for $T_{\pi}$ and $T_{*}$
 
-In the complete metric space $\mathbb{R}^{|\mathcal{S}|}$ equipped with the maximum norm $\|v\|_\infty = \max_{s \in \mathcal{S}} |v(s)|$:
+In the complete metric space $\mathbb{R}^{|\mathcal{S}|}$ equipped with the maximum norm $\lVert v \rVert_{\infty} = \max_{s \in \mathcal{S}} |v(s)|$:
 
-1. **For $T_\pi$:**
+1. **For $T_{\pi}$:**
 
-   $$\|T_\pi u - T_\pi v\|_\infty = \|\gamma P^\pi (u - v)\|_\infty \le \gamma \|P^\pi\|_\infty \|u - v\|_\infty = \gamma \|u - v\|_\infty$$
+   $$
+   \lVert T_{\pi} u - T_{\pi} v \rVert_{\infty} = \lVert \gamma P^{\pi} (u - v) \rVert_{\infty} \le \gamma \lVert P^{\pi} \rVert_{\infty} \lVert u - v \rVert_{\infty} = \gamma \lVert u - v \rVert_{\infty}
+   $$
 
-   Since $P^\pi$ is a stochastic matrix ($\|P^\pi\|_\infty = 1$) and $\gamma < 1$, $T_\pi$ is a contraction mapping.
+   Since $P^{\pi}$ is a stochastic matrix ($\lVert P^{\pi} \rVert_{\infty} = 1$) and $\gamma < 1$, $T_{\pi}$ is a contraction mapping.
 
-2. **For $T_*$:**
+2. **For $T_{*}$:**
 
-   For any state $s \in \mathcal{S}$, assuming the maximum for $(T_* u)(s)$ is attained at action $a_1$:
+   For any state $s \in \mathcal{S}$, assuming the maximum for $(T_{*} u)(s)$ is attained at action $a_1$:
 
-   $$(T_* u)(s) - (T_* v)(s) \le \gamma \sum_{s'} P_{ss'}^{a_1} (u(s') - v(s')) \le \gamma \|u - v\|_\infty \sum_{s'} P_{ss'}^{a_1} = \gamma \|u - v\|_\infty$$
+   $$
+   (T_{*} u)(s) - (T_{*} v)(s) \le \gamma \sum_{s'} P_{ss'}^{a_1} (u(s') - v(s')) \le \gamma \lVert u - v \rVert_{\infty} \sum_{s'} P_{ss'}^{a_1} = \gamma \lVert u - v \rVert_{\infty}
+   $$
 
-   Evaluating $(T_* v)(s) - (T_* u)(s)$ similarly yields:
+   Evaluating $(T_{*} v)(s) - (T_{*} u)(s)$ similarly yields:
 
-   $$\|T_* u - T_* v\|_\infty \le \gamma \|u - v\|_\infty$$
+   $$
+   \lVert T_{*} u - T_{*} v \rVert_{\infty} \le \gamma \lVert u - v \rVert_{\infty}
+   $$
 
-*By Banach's fixed-point theorem, there exists a unique fixed point $v_\pi = T_\pi v_\pi$ and $v_* = T_* v_*$ to which iterative evaluations are guaranteed to converge.*
+*By Banach's fixed-point theorem, there exists a unique fixed point $v_{\pi} = T_{\pi} v_{\pi}$ and $v_{*} = T_{*} v_{*}$ to which iterative evaluations are guaranteed to converge.*
 
 ### 3. RL in Terms of Control Theory & Dynamical Systems
 
